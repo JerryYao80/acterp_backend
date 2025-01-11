@@ -1,0 +1,54 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - StripPrefix=0
+        - id: customer-service
+          uri: lb://customer-service
+          predicates:
+            - Path=/api/customers/**
+          filters:
+            - StripPrefix=0
+        - id: business-service
+          uri: lb://business-service
+          predicates:
+            - Path=/api/business/**
+          filters:
+            - StripPrefix=0
+        - id: resource-service
+          uri: lb://resource-service
+          predicates:
+            - Path=/api/resources/**
+          filters:
+            - StripPrefix=0
+        - id: finance-service
+          uri: lb://finance-service
+          predicates:
+            - Path=/api/finance/**
+          filters:
+            - StripPrefix=0
+        - id: dashboard-service
+          uri: lb://dashboard-service
+          predicates:
+            - Path=/api/dashboard/**
+          filters:
+            - StripPrefix=0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/ 
