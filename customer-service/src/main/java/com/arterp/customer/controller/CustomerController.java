@@ -1,102 +1,111 @@
 package com.arterp.customer.controller;
 
-import com.arterp.common.dto.BaseResponse;
 import com.arterp.customer.dto.CustomerDTO;
 import com.arterp.customer.service.CustomerService;
-import com.arterp.customer.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Map;
-import java.time.LocalDateTime;
-import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api/customers")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*", maxAge = 3600)
 public class CustomerController {
     private final CustomerService customerService;
-    private final CustomerRepository customerRepository;
 
     @GetMapping("/search")
-    @PreAuthorize("hasRole('USER')")
-    public BaseResponse<Page<CustomerDTO>> searchCustomers(
+    public ResponseEntity<Map<String, Object>> searchCustomers(
             @RequestParam(required = false, defaultValue = "") String search,
             Pageable pageable) {
-        return BaseResponse.success(customerService.searchCustomers(search, pageable));
+        Page<CustomerDTO> page = customerService.searchCustomers(search, pageable);
+        return ResponseEntity.ok(Map.of(
+            "success", true,
+            "message", "Customers retrieved successfully",
+            "data", page,
+            "code", 200
+        ));
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
-    public BaseResponse<CustomerDTO> getCustomer(@PathVariable Long id) {
-        return BaseResponse.success(customerService.getCustomerById(id));
+    public ResponseEntity<Map<String, Object>> getCustomer(@PathVariable Long id) {
+        CustomerDTO customer = customerService.getCustomer(id);
+        return ResponseEntity.ok(Map.of(
+            "success", true,
+            "message", "Customer retrieved successfully",
+            "data", customer,
+            "code", 200
+        ));
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('USER')")
-    public BaseResponse<CustomerDTO> createCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
-        return BaseResponse.success(customerService.createCustomer(customerDTO));
+    public ResponseEntity<Map<String, Object>> createCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
+        CustomerDTO createdCustomer = customerService.createCustomer(customerDTO);
+        return ResponseEntity.ok(Map.of(
+            "success", true,
+            "message", "Customer created successfully",
+            "data", createdCustomer,
+            "code", 200
+        ));
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
-    public BaseResponse<CustomerDTO> updateCustomer(
+    public ResponseEntity<Map<String, Object>> updateCustomer(
             @PathVariable Long id,
             @Valid @RequestBody CustomerDTO customerDTO) {
-        return BaseResponse.success(customerService.updateCustomer(id, customerDTO));
+        CustomerDTO updatedCustomer = customerService.updateCustomer(id, customerDTO);
+        return ResponseEntity.ok(Map.of(
+            "success", true,
+            "message", "Customer updated successfully",
+            "data", updatedCustomer,
+            "code", 200
+        ));
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public BaseResponse<Void> deleteCustomer(@PathVariable Long id) {
+    public ResponseEntity<Map<String, Object>> deleteCustomer(@PathVariable Long id) {
         customerService.deleteCustomer(id);
-        return BaseResponse.success(null);
+        return ResponseEntity.ok(Map.of(
+            "success", true,
+            "message", "Customer deleted successfully",
+            "data", null,
+            "code", 200
+        ));
     }
 
-    @GetMapping("/stats/nationality")
-    @PreAuthorize("hasRole('USER')")
-    public BaseResponse<Map<String, Long>> getNationalityDistribution() {
-        return BaseResponse.success(customerService.getNationalityDistribution());
+    @GetMapping("/stats/status")
+    public ResponseEntity<Map<String, Object>> getStatusDistribution() {
+        Map<String, Long> distribution = customerService.getStatusDistribution();
+        return ResponseEntity.ok(Map.of(
+            "success", true,
+            "message", "Status distribution retrieved successfully",
+            "data", distribution,
+            "code", 200
+        ));
     }
 
     @GetMapping("/stats/risk-level")
-    @PreAuthorize("hasRole('USER')")
-    public BaseResponse<Map<String, Long>> getRiskLevelDistribution() {
-        return BaseResponse.success(customerService.getRiskLevelDistribution());
+    public ResponseEntity<Map<String, Object>> getRiskLevelDistribution() {
+        Map<String, Long> distribution = customerService.getRiskLevelDistribution();
+        return ResponseEntity.ok(Map.of(
+            "success", true,
+            "message", "Risk level distribution retrieved successfully",
+            "data", distribution,
+            "code", 200
+        ));
     }
 
     @GetMapping("/stats")
-    @PreAuthorize("hasRole('USER')")
-    public BaseResponse<Map<String, Object>> getCustomerStats() {
-        Map<String, Object> stats = new HashMap<>();
-        
-        // Get total customers
-        long totalCustomers = customerRepository.count();
-        stats.put("totalCustomers", totalCustomers);
-        
-        // Get customer growth (new customers in last month)
-        LocalDateTime lastMonth = LocalDateTime.now().minusMonths(1);
-        long newCustomers = customerRepository.countByCreatedAtAfter(lastMonth);
-        double customerGrowth = totalCustomers > 0 ? (newCustomers * 100.0 / totalCustomers) : 0;
-        stats.put("customerGrowth", customerGrowth);
-        
-        // Get customer type distribution
-        Map<String, Long> typeDistribution = customerService.getCustomerTypeDistribution();
-        stats.put("typeDistribution", typeDistribution);
-        
-        // Get customer status distribution
-        Map<String, Long> statusDistribution = customerService.getStatusDistribution();
-        stats.put("statusDistribution", statusDistribution);
-        
-        // Get customer risk level distribution
-        Map<String, Long> riskDistribution = customerService.getRiskLevelDistribution();
-        stats.put("riskDistribution", riskDistribution);
-        
-        return BaseResponse.success(stats);
+    public ResponseEntity<Map<String, Object>> getCustomerStats() {
+        Map<String, Object> stats = customerService.getCustomerStats();
+        return ResponseEntity.ok(Map.of(
+            "success", true,
+            "message", "Customer stats retrieved successfully",
+            "data", stats,
+            "code", 200
+        ));
     }
 } 

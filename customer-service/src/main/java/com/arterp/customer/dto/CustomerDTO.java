@@ -5,9 +5,10 @@ import lombok.Data;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import java.time.LocalDate;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class CustomerDTO {
@@ -19,15 +20,13 @@ public class CustomerDTO {
     @NotBlank(message = "Gender is required")
     private String gender;
 
-    @NotNull(message = "Birth date is required")
-    @Past(message = "Birth date must be in the past")
     private LocalDate birthDate;
 
-    @NotBlank(message = "Phone is required")
+    @NotBlank(message = "Phone number is required")
     private String phone;
 
     @NotBlank(message = "Email is required")
-    @Email(message = "Email must be valid")
+    @Email(message = "Invalid email format")
     private String email;
 
     @NotBlank(message = "ID type is required")
@@ -39,9 +38,7 @@ public class CustomerDTO {
     @NotBlank(message = "Nationality is required")
     private String nationality;
 
-    @NotBlank(message = "Marital status is required")
     private String maritalStatus;
-
     private String medicalHistory;
     private String familyHistory;
     private String geneticScreening;
@@ -58,18 +55,15 @@ public class CustomerDTO {
     @NotBlank(message = "Risk level is required")
     private String riskLevel;
 
-    private Set<String> addresses;
-    private Set<String> documentUrls;
+    private List<String> addresses = new ArrayList<>();
+    private List<String> documentUrls = new ArrayList<>();
     private String notes;
 
     @NotNull(message = "Insurance status is required")
     private Boolean hasInsurance;
 
     private String insuranceInformation;
-
-    @NotBlank(message = "Source is required")
     private String source;
-
     private String emergencyContact;
 
     @NotBlank(message = "Preferred language is required")
@@ -80,4 +74,7 @@ public class CustomerDTO {
 
     @NotNull(message = "Marketing consent is required")
     private Boolean marketingConsent;
+
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 } 
