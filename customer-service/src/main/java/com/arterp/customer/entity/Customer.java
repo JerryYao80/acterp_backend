@@ -31,7 +31,10 @@ public class Customer {
     private String phone;
 
     @Column(nullable = false)
-    private String email;
+    private String address;
+
+    @Column(nullable = false)
+    private String occupation;
 
     @Column(name = "id_type", nullable = false)
     private String idType;
@@ -39,11 +42,31 @@ public class Customer {
     @Column(name = "id_number", nullable = false)
     private String idNumber;
 
-    @Column(nullable = false)
-    private String nationality;
+    @Column(name = "customer_type", nullable = false)
+    private String customerType;
 
-    @Column(name = "marital_status")
-    private String maritalStatus;
+    private String source;
+
+    @Column(name = "emergency_contact")
+    private String emergencyContact;
+
+    @Column(name = "donor_requirement", columnDefinition = "TEXT")
+    private String donorRequirement;
+
+    @Column(name = "gestation_requirement", columnDefinition = "TEXT")
+    private String gestationRequirement;
+
+    @Column(nullable = false)
+    private Double budget;
+
+    @Column(name = "expected_start_time")
+    private LocalDate expectedStartTime;
+
+    @Column(name = "expected_end_time")
+    private LocalDate expectedEndTime;
+
+    @Column(name = "recommended_plan")
+    private String recommendedPlan;
 
     @Column(name = "medical_history", columnDefinition = "TEXT")
     private String medicalHistory;
@@ -51,56 +74,14 @@ public class Customer {
     @Column(name = "family_history", columnDefinition = "TEXT")
     private String familyHistory;
 
-    @Column(name = "genetic_screening", columnDefinition = "TEXT")
-    private String geneticScreening;
-
     @Column(nullable = false)
     private String status;
-
-    @Column(name = "customer_type", nullable = false)
-    private String customerType;
-
-    @Column(columnDefinition = "TEXT")
-    private String requirements;
-
-    @Column(columnDefinition = "TEXT")
-    private String preferences;
 
     @Column(name = "risk_level", nullable = false)
     private String riskLevel;
 
-    @ElementCollection
-    @CollectionTable(name = "customer_addresses", joinColumns = @JoinColumn(name = "customer_id"))
-    @Column(name = "address")
-    private List<String> addresses = new ArrayList<>();
-
-    @ElementCollection
-    @CollectionTable(name = "customer_documents", joinColumns = @JoinColumn(name = "customer_id"))
-    @Column(name = "document_url")
-    private List<String> documentUrls = new ArrayList<>();
-
     @Column(columnDefinition = "TEXT")
     private String notes;
-
-    @Column(name = "has_insurance")
-    private boolean hasInsurance;
-
-    @Column(name = "insurance_information", columnDefinition = "TEXT")
-    private String insuranceInformation;
-
-    private String source;
-
-    @Column(name = "emergency_contact")
-    private String emergencyContact;
-
-    @Column(name = "preferred_language")
-    private String preferredLanguage;
-
-    @Column(name = "communication_preference")
-    private String communicationPreference;
-
-    @Column(name = "marketing_consent")
-    private boolean marketingConsent;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

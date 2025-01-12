@@ -11,10 +11,10 @@ import java.util.List;
 
 @Repository
 public interface AssessmentRepository extends JpaRepository<Assessment, Long> {
-    Page<Assessment> findByCustomerId(Long customerId, Pageable pageable);
+    Page<Assessment> findByCustomer_Id(Long customerId, Pageable pageable);
 
     @Query("SELECT a FROM Assessment a WHERE " +
-            "a.customerId = :customerId AND " +
+            "a.customer.id = :customerId AND " +
             "(LOWER(a.assessmentType) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
             "LOWER(a.status) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
             "LOWER(a.result) LIKE LOWER(CONCAT('%', :search, '%')))")

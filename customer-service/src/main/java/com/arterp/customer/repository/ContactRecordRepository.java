@@ -11,10 +11,10 @@ import java.util.List;
 
 @Repository
 public interface ContactRecordRepository extends JpaRepository<ContactRecord, Long> {
-    Page<ContactRecord> findByCustomerId(Long customerId, Pageable pageable);
+    Page<ContactRecord> findByCustomer_Id(Long customerId, Pageable pageable);
 
     @Query("SELECT c FROM ContactRecord c WHERE " +
-            "c.customerId = :customerId AND " +
+            "c.customer.id = :customerId AND " +
             "(LOWER(c.contactType) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
             "LOWER(c.purpose) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
             "LOWER(c.status) LIKE LOWER(CONCAT('%', :search, '%')))")

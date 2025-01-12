@@ -22,8 +22,8 @@ public class CustomerService {
     private final ModelMapper modelMapper;
 
     public Page<CustomerDTO> searchCustomers(String search, Pageable pageable) {
-        Page<Customer> customers = customerRepository.findByNameContainingIgnoreCaseOrEmailContainingIgnoreCaseOrPhoneContaining(
-            search, search, search, pageable);
+        Page<Customer> customers = customerRepository.findByNameContainingIgnoreCaseOrPhoneContaining(
+            search, search, pageable);
         return customers.map(customer -> modelMapper.map(customer, CustomerDTO.class));
     }
 
