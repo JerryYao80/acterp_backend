@@ -18,7 +18,7 @@
     <description>Assisted Reproductive Technology ERP System</description>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <spring-cloud.version>2021.0.5</spring-cloud.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -28,9 +28,7 @@
         <module>auth-service</module>
         <module>business-service</module>
         <module>common</module>
-        <module>config-service</module>
         <module>customer-service</module>
-        <module>dashboard-service</module>
         <module>eureka-server</module>
         <module>finance-service</module>
         <module>gateway-service</module>

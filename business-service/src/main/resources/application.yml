@@ -7,7 +7,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/arterp_business
     username: postgres
-    password: postgres
+    password: 6911yzj010100
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

@@ -2,14 +2,10 @@ package com.arterp.business.dto;
 
 import lombok.Data;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Data
 public class BusinessProcessDTO {
@@ -24,29 +20,22 @@ public class BusinessProcessDTO {
     @NotBlank(message = "Status is required")
     private String status;
 
+    @NotBlank(message = "Stage is required")
+    private String stage;
+
     @NotNull(message = "Start date is required")
-    private LocalDate startDate;
+    private LocalDateTime startDate;
 
-    private LocalDate expectedEndDate;
-    private LocalDate actualEndDate;
-
-    @NotNull(message = "Total budget is required")
-    @Positive(message = "Total budget must be positive")
-    private BigDecimal totalBudget;
-
-    @NotNull(message = "Current spent is required")
-    @Positive(message = "Current spent must be positive")
-    private BigDecimal currentSpent;
-
-    private Set<Long> assignedResourceIds;
-
-    @Valid
-    private List<ProcessStageDTO> stages;
-
-    private String notes;
-
-    @NotBlank(message = "Risk level is required")
-    private String riskLevel;
-
-    private Set<String> documentUrls;
+    private LocalDateTime expectedEndDate;
+    private LocalDateTime actualEndDate;
+    private List<String> checkupRecords;
+    private List<String> notifications;
+    private List<String> socialMediaRecords;
+    private String ivfRecord;
+    private String embryoTransferRecord;
+    private String pregnancyCareRecord;
+    private String deliveryRecord;
+    private String entryServiceRecord;
+    private String settlementServiceRecord;
+    private boolean deleted;
 } 

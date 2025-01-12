@@ -1,7 +1,6 @@
 package com.arterp.gateway.filter;
 
 import com.arterp.common.util.JwtUtil;
-import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
@@ -9,12 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends AbstractGatewayFilterFactory<JwtAuthenticationFilter.Config> {
     private final JwtUtil jwtUtil;
 
-    public JwtAuthenticationFilter() {
+    public JwtAuthenticationFilter(JwtUtil jwtUtil) {
         super(Config.class);
+        this.jwtUtil = jwtUtil;
     }
 
     @Override

@@ -87,6 +87,15 @@ public class CustomerService {
                 ));
     }
 
+    @Transactional(readOnly = true)
+    public Map<String, Long> getNationalityDistribution() {
+        return customerRepository.countByNationality().stream()
+                .collect(Collectors.toMap(
+                        row -> (String) row[0],
+                        row -> (Long) row[1]
+                ));
+    }
+
     private Customer findCustomerById(Long id) {
         return customerRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("Customer not found with id: " + id));

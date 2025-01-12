@@ -5,58 +5,65 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Data
-@Entity
-@Table(name = "business_processes")
 @EqualsAndHashCode(callSuper = true)
+@Entity
+@Table(name = "business_process")
 public class BusinessProcess extends BaseEntity {
-
-    @Column(nullable = false)
+    @Column(name = "customer_id")
     private Long customerId;
 
-    @Column(nullable = false)
-    private String processType;  // IVF, Surrogacy, etc.
+    @Column(name = "process_type")
+    private String processType;
 
-    @Column(nullable = false)
-    private String status;  // Planning, In Progress, Completed, etc.
+    @Column(name = "status")
+    private String status;
 
-    @Column(nullable = false)
-    private LocalDate startDate;
+    @Column(name = "stage")
+    private String stage;
 
-    @Column
-    private LocalDate expectedEndDate;
+    @Column(name = "start_date")
+    private LocalDateTime startDate;
 
-    @Column
-    private LocalDate actualEndDate;
+    @Column(name = "expected_end_date")
+    private LocalDateTime expectedEndDate;
 
-    @Column(nullable = false)
-    private BigDecimal totalBudget;
-
-    @Column(nullable = false)
-    private BigDecimal currentSpent;
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "business_process_resources", joinColumns = @JoinColumn(name = "process_id"))
-    private Set<Long> assignedResourceIds = new HashSet<>();
-
-    @OneToMany(mappedBy = "businessProcess", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProcessStage> stages = new ArrayList<>();
-
-    @Column(length = 1000)
-    private String notes;
-
-    @Column(nullable = false)
-    private String riskLevel;  // Low, Medium, High
+    @Column(name = "actual_end_date")
+    private LocalDateTime actualEndDate;
 
     @ElementCollection
-    @CollectionTable(name = "business_process_documents", joinColumns = @JoinColumn(name = "process_id"))
-    @Column(name = "document_url")
-    private Set<String> documentUrls = new HashSet<>();
+    @CollectionTable(name = "checkup_records", joinColumns = @JoinColumn(name = "business_process_id"))
+    @Column(name = "record")
+    private List<String> checkupRecords;
+
+    @ElementCollection
+    @CollectionTable(name = "notifications", joinColumns = @JoinColumn(name = "business_process_id"))
+    @Column(name = "notification")
+    private List<String> notifications;
+
+    @ElementCollection
+    @CollectionTable(name = "social_media_records", joinColumns = @JoinColumn(name = "business_process_id"))
+    @Column(name = "record")
+    private List<String> socialMediaRecords;
+
+    @Column(name = "ivf_record")
+    private String ivfRecord;
+
+    @Column(name = "embryo_transfer_record")
+    private String embryoTransferRecord;
+
+    @Column(name = "pregnancy_care_record")
+    private String pregnancyCareRecord;
+
+    @Column(name = "delivery_record")
+    private String deliveryRecord;
+
+    @Column(name = "entry_service_record")
+    private String entryServiceRecord;
+
+    @Column(name = "settlement_service_record")
+    private String settlementServiceRecord;
 } 

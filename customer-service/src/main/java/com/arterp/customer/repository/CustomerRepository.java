@@ -38,5 +38,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     @Query("SELECT c.source, COUNT(c) FROM Customer c GROUP BY c.source")
     List<Object[]> countBySource();
 
+    @Query("SELECT c.nationality, COUNT(c) FROM Customer c GROUP BY c.nationality")
+    List<Object[]> countByNationality();
+
     long countByCreatedAtAfter(LocalDateTime date);
 } 
