@@ -12,9 +12,13 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "*"
+            allowedOrigins: "http://localhost:3000"
             allowedMethods: "*"
             allowedHeaders: "*"
+            exposedHeaders:
+              - Authorization
+              - Content-Type
+            allowCredentials: true
             maxAge: 3600
       discovery:
         locator:
