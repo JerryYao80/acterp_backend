@@ -22,59 +22,30 @@ public class CustomerDTO {
 
     private LocalDate birthDate;
 
-    @NotBlank(message = "Phone number is required")
-    private String phone;
-
-    @NotBlank(message = "Email is required")
-    @Email(message = "Invalid email format")
-    private String email;
-
     @NotBlank(message = "ID type is required")
     private String idType;
 
     @NotBlank(message = "ID number is required")
     private String idNumber;
 
-    @NotBlank(message = "Nationality is required")
-    private String nationality;
+    @NotBlank(message = "Phone number is required")
+    private String phone;
 
+    private String occupation;
+    private String address;
     private String maritalStatus;
+    private Double budget;
+    private LocalDate expectedStartTime;
+    private LocalDate expectedEndTime;
+    private String donorRequirement;
+    private String gestationRequirement;
+    private String recommendedPlan;
     private String medicalHistory;
     private String familyHistory;
-    private String geneticScreening;
-
-    @NotBlank(message = "Status is required")
     private String status;
-
-    @NotBlank(message = "Customer type is required")
-    private String customerType;
-
-    private String requirements;
-    private String preferences;
-
-    @NotBlank(message = "Risk level is required")
-    private String riskLevel;
-
-    private List<String> addresses = new ArrayList<>();
-    private List<String> documentUrls = new ArrayList<>();
-    private String notes;
-
-    @NotNull(message = "Insurance status is required")
-    private Boolean hasInsurance;
-
-    private String insuranceInformation;
-    private String source;
     private String emergencyContact;
-
-    @NotBlank(message = "Preferred language is required")
-    private String preferredLanguage;
-
-    @NotBlank(message = "Communication preference is required")
-    private String communicationPreference;
-
-    @NotNull(message = "Marketing consent is required")
-    private Boolean marketingConsent;
-
+    private String source;
+    private String notes;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 } 

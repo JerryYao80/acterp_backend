@@ -60,28 +60,17 @@ public class CustomerService {
             .collect(Collectors.groupingBy(Customer::getStatus, Collectors.counting()));
     }
 
-    public Map<String, Long> getRiskLevelDistribution() {
-        return customerRepository.findAll().stream()
-            .collect(Collectors.groupingBy(Customer::getRiskLevel, Collectors.counting()));
-    }
-
     public Map<String, Object> getCustomerStats() {
         long totalCustomers = customerRepository.count();
         // TODO: Implement customer growth calculation
         double customerGrowth = 0.0;
-
-        Map<String, Long> typeDistribution = customerRepository.findAll().stream()
-            .collect(Collectors.groupingBy(Customer::getCustomerType, Collectors.counting()));
         
         Map<String, Long> statusDistribution = getStatusDistribution();
-        Map<String, Long> riskDistribution = getRiskLevelDistribution();
 
         return Map.of(
             "totalCustomers", totalCustomers,
             "customerGrowth", customerGrowth,
-            "typeDistribution", typeDistribution,
-            "statusDistribution", statusDistribution,
-            "riskDistribution", riskDistribution
+            "statusDistribution", statusDistribution
         );
     }
 } 

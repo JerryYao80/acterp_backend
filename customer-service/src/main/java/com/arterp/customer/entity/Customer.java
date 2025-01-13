@@ -18,45 +18,34 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 10)
     private String gender;
 
-    @Column(name = "birth_date")
+    @Column(name = "birthday")
     private LocalDate birthDate;
 
-    @Column(nullable = false)
-    private String phone;
-
-    @Column(nullable = false)
-    private String address;
-
-    @Column(nullable = false)
-    private String occupation;
-
-    @Column(name = "id_type", nullable = false)
+    @Column(name = "id_type", length = 20)
     private String idType;
 
-    @Column(name = "id_number", nullable = false)
+    @Column(name = "id_number", length = 50)
     private String idNumber;
 
-    @Column(name = "customer_type", nullable = false)
-    private String customerType;
+    @Column(length = 20)
+    private String phone;
 
-    private String source;
+    @Column(length = 100)
+    private String occupation;
 
-    @Column(name = "emergency_contact")
-    private String emergencyContact;
+    @Column(columnDefinition = "text")
+    private String address;
 
-    @Column(name = "donor_requirement", columnDefinition = "TEXT")
-    private String donorRequirement;
+    @Column(name = "marital_status", length = 20)
+    private String maritalStatus;
 
-    @Column(name = "gestation_requirement", columnDefinition = "TEXT")
-    private String gestationRequirement;
-
-    @Column(nullable = false)
+    @Column(precision = 15, scale = 2)
     private Double budget;
 
     @Column(name = "expected_start_time")
@@ -65,22 +54,31 @@ public class Customer {
     @Column(name = "expected_end_time")
     private LocalDate expectedEndTime;
 
+    @Column(name = "donor_requirement", columnDefinition = "text")
+    private String donorRequirement;
+
+    @Column(name = "gestation_requirement", columnDefinition = "text")
+    private String gestationRequirement;
+
     @Column(name = "recommended_plan")
     private String recommendedPlan;
 
-    @Column(name = "medical_history", columnDefinition = "TEXT")
+    @Column(name = "medical_history", columnDefinition = "text")
     private String medicalHistory;
 
-    @Column(name = "family_history", columnDefinition = "TEXT")
+    @Column(name = "family_history", columnDefinition = "text")
     private String familyHistory;
 
-    @Column(nullable = false)
+    @Column(length = 20)
     private String status;
 
-    @Column(name = "risk_level", nullable = false)
-    private String riskLevel;
+    @Column(name = "emergency_contact", columnDefinition = "text")
+    private String emergencyContact;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(length = 100)
+    private String source;
+
+    @Column(columnDefinition = "text")
     private String notes;
 
     @CreationTimestamp

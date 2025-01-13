@@ -87,17 +87,6 @@ public class CustomerController {
         ));
     }
 
-    @GetMapping("/stats/risk-level")
-    public ResponseEntity<Map<String, Object>> getRiskLevelDistribution() {
-        Map<String, Long> distribution = customerService.getRiskLevelDistribution();
-        return ResponseEntity.ok(Map.of(
-            "success", true,
-            "message", "Risk level distribution retrieved successfully",
-            "data", distribution,
-            "code", 200
-        ));
-    }
-
     @GetMapping("/stats")
     public ResponseEntity<Map<String, Object>> getCustomerStats() {
         Map<String, Object> stats = customerService.getCustomerStats();
